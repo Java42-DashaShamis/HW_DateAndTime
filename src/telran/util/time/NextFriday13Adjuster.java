@@ -11,6 +11,9 @@ public class NextFriday13Adjuster implements TemporalAdjuster {
 
 	@Override
 	public Temporal adjustInto(Temporal temporal) {
+		/* V.R. All is OK, including algorithm.
+		 * There are unnecessary variables. Like currentDay.
+		 */
 		Temporal current = temporal;
 		int currentDay = temporal.get(ChronoField.DAY_OF_MONTH);
 		current = current.with(ChronoField.DAY_OF_MONTH, 13);
@@ -21,7 +24,6 @@ public class NextFriday13Adjuster implements TemporalAdjuster {
 			current = current.plus(1, ChronoUnit.MONTHS);
 		}
 		return current;
-		
 	}
 
 }
