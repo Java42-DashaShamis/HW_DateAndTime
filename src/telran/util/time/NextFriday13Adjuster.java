@@ -17,6 +17,7 @@ public class NextFriday13Adjuster implements TemporalAdjuster {
 		if(currentDay >= 13) {
 			current = current.plus(1, ChronoUnit.MONTHS);
 		}
+		//[YG] name  is localization dependent, for example for Hebrew Friday will be "Yom Shishi"
 		while(DayOfWeek.from(current).name() != "FRIDAY") {
 			current = current.plus(1, ChronoUnit.MONTHS);
 		}
