@@ -43,15 +43,21 @@ public class PrintCalendar {
 	private static int setYear(String[] args) throws Exception {
 		int year = LocalDate.now().get(ChronoField.YEAR);
 		if(args.length > 1) {
+			
 			year = Integer.valueOf(args[1]);
+			//[YG] should be exception handling otherwise the user may get unclear message
+			//[YG] should be validation (year can't be a negative) with appropriate exception throwing
+			
 		}
 		return year;
 	}
-
+//[YG] better method name getMonth rather than setMonth
 	private static int setMonth(String[] args) throws Exception {
 		int month = LocalDate.now().get(ChronoField.MONTH_OF_YEAR);
 		if(args.length > 0) {
 			month = Integer.valueOf(args[0]);
+			//[YG] should be exception handling otherwise the user may get unclear message
+			//[YG] should be validation (month can be neither less than 1 nor greater than 12) with appropriate exception throwing
 		}
 		return month;
 	}
@@ -62,7 +68,9 @@ public class PrintCalendar {
 			//in case of wrong week day exception should be thrown
 			String day = args[2];
 			DayOfWeek[] ar = DayOfWeek.values();
+			//[YG] better to use DayOfWeek.valueOf method with exception handling
 			int index = getIndex(day, ar);
+			//[YG] no validation of possible -1 result. 
 			int indexGiven = index;
 			int indexDisplay = 0;
 			do {
