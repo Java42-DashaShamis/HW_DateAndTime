@@ -40,7 +40,7 @@ public class PrintCalendar {
 	}
 	
 	
-	private static int setYear(String[] args) {
+	private static int setYear(String[] args) throws Exception {
 		int year = LocalDate.now().get(ChronoField.YEAR);
 		if(args.length > 1) {
 			year = Integer.valueOf(args[1]);
@@ -48,7 +48,7 @@ public class PrintCalendar {
 		return year;
 	}
 
-	private static int setMonth(String[] args) {
+	private static int setMonth(String[] args) throws Exception {
 		int month = LocalDate.now().get(ChronoField.MONTH_OF_YEAR);
 		if(args.length > 0) {
 			month = Integer.valueOf(args[0]);
@@ -56,16 +56,13 @@ public class PrintCalendar {
 		return month;
 	}
 
-	private static void setDaysOfWeek(String[] args) throws Exception{
+	private static void setDaysOfWeek(String[] args) throws Exception {
 		if (args.length > 2) {
 			//TODO reordering of days 
 			//in case of wrong week day exception should be thrown
 			String day = args[2];
 			DayOfWeek[] ar = DayOfWeek.values();
 			int index = getIndex(day, ar);
-			if(index < 0) {
-				throw new java.lang.Error("not valid name of day of week");
-			}
 			int indexGiven = index;
 			int indexDisplay = 0;
 			do {
@@ -85,7 +82,7 @@ public class PrintCalendar {
 
 	private static int getIndex(String day, DayOfWeek[] ar) {
 		for(int i = 0; i < ar.length; i++) {
-			if(ar[i].name() == day) {
+			if(ar[i].name().equals(day)) {
 				return i;
 			}
 		}
