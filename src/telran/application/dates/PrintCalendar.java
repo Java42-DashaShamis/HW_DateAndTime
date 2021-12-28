@@ -7,7 +7,7 @@ import java.time.YearMonth;
 import java.time.format.TextStyle;
 import java.time.temporal.ChronoField;
 import java.util.Locale;
-
+  
 public class PrintCalendar {
 	private static final TextStyle WEEK_DAY_LENGTH = TextStyle.SHORT;
 	static DayOfWeek[] daysOfWeek;
@@ -40,7 +40,16 @@ public class PrintCalendar {
 	}
 	
 	
+	// V.R. The name getYear is more suitable
 	private static int setYear(String[] args) {
+		/* V.R. The variable initialisation is redundant in most of cases.
+		 * The following code looks more logical:
+		     if(args.length > 1) {
+		       return Integer.valueOf(args[1]);
+		     }
+		     return LocalDate.now().get(ChronoField.YEAR);
+		 *  Isn't it?
+		 */
 		int year = LocalDate.now().get(ChronoField.YEAR);
 		if(args.length > 1) {
 			year = Integer.valueOf(args[1]);
@@ -48,7 +57,16 @@ public class PrintCalendar {
 		return year;
 	}
 
+	// V.R. The name getMonth is more suitable
 	private static int setMonth(String[] args) {
+		/* V.R. The variable initialisation is redundant in most of cases.
+		 * The following code looks more logical:
+		     if(args.length > 0) {
+		       return Integer.valueOf(args[0]);
+		     }
+		     return LocalDate.now().get(ChronoField.MONTH_OF_YEAR);
+		 *  Isn't it?
+		 */
 		int month = LocalDate.now().get(ChronoField.MONTH_OF_YEAR);
 		if(args.length > 0) {
 			month = Integer.valueOf(args[0]);
@@ -60,8 +78,12 @@ public class PrintCalendar {
 		if (args.length > 2) {
 			//TODO reordering of days 
 			//in case of wrong week day exception should be thrown
-			String day = args[2];
+			String day = args[2];  // V.R. UpperCase?
 			DayOfWeek[] ar = DayOfWeek.values();
+			/* V.R. index calculation has to be done as
+			 *  int index = DayOfWeek.valueOf(args[2].toUpperCase()).getValue();
+			 *  In this case it is possible to remove lines 87-90 and 109-114
+			 */
 			int index = getIndex(day, ar);
 			if(index < 0) {
 				throw new java.lang.Error("not valid name of day of week");
@@ -78,6 +100,7 @@ public class PrintCalendar {
 			}while(indexGiven != index);
 			
 		}else {
+			//. This operation has to be done at line 13, not here
 			daysOfWeek = DayOfWeek.values();
 		}
 		
